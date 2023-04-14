@@ -1,0 +1,32 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0.3
+  Exclude:
+    - 'config/**/*'
+    - '*.ru'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+    - 'lib/backup/**/*'
+    - 'lib/tasks/**/*'
+Layout/DotPosition:
+  Enabled: true
+  EnforcedStyle: trailing
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+Style/SymbolArray:
+  EnforcedStyle: percent
+Style/MultilineBlockChain:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+Style/Documentation:
+  Exclude:
+    - 'db/migrate/**/*'
+Layout/LineLength:
+  Max: 120
