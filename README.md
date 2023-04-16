@@ -1,19 +1,53 @@
-# DocSales tech test
+# HTML to PDF API
 
-## The challange
+This API provides the ability to generate PDF documents from HTML templates.
 
-**Hello future Docster!**
+## Dependencies
 
-Your mission now is to build an API with Ruby on Rails that generates PDFs from an HTML fragment
-template with some placeholders to be substituted by data received when creating the PDF.
+To install and run this project, you will need:
 
-The API shall have two endpoints:
+* Ruby 3.0.3 - We recommend using asdf to manage Ruby versions
+* Bundler - to install Ruby gems and dependencies
+* wkhtmltopdf - download here
 
-- GET /api/v1/documents/list
-- POST/PUT /api/v1/documents/create
+## Instalation
 
-The first one (documents/list) will show all the previously created documents, their information and
-metadata, as follows:
+### Follow the steps below
+
+1. **Clone the repository**
+`git clone https://github.com/JoaoLeopoldino/technical-challange.git`
+
+2. **Instal the dependecies**
+`bundle install`
+
+3. **Run the migrations**
+`rails db:create db:migrate`
+
+4. **Run the specs**
+`bundle exec rspec`
+
+5. **Run the server**
+`rails s`
+
+## API Documentation
+
+### Base URL
+
+**Production**
+
+ ``https://htmltopdf-q250.onrender.com``
+
+**Development**
+
+``localhost:3000``
+
+### GET /api/v1/documents/list
+
+**Returns a list of all documents in the database**
+
+Response
+Status: 200 OK
+
 ```javascript
 // Example response of the GET /api/v1/documents/list request
 [
@@ -43,9 +77,12 @@ metadata, as follows:
 ]
 ```
 
-The other endpoint should allow the creation of PDFs from HTML fragments with placeholders to substitute
-the data from the `document_data` entry above. The request and the response should be as demonstrated
-below:
+
+### POST /api/v1/documents/create
+
+**Creates a new document with the provided data**
+
+Request Body
 
 ```javascript
 // Example request to the POST/PUT /api/v1/documents/create endpoint
@@ -60,6 +97,10 @@ below:
 }
 ```
 
+Response
+Status: 201 Created
+Body:
+
 ```javascript
 // Example response of the POST/PUT /api/v1/documents/create endpoint
 {
@@ -73,27 +114,3 @@ below:
   "created_at": "2012-04-23T18:25:43.511Z"
 }
 ```
-
-### Document creation
-
-When the API is called to create a document with the above JSON, the following steps must be followed:
-
-1. Substitute all placeholders in the HTML fragment
-  - The placeholder is composed of a string inside two curly brackets `{{}}`. The string should correspond
-  to a key in the `document_data` entry given on the request body. After that this placeholder should be
-  substituted by the corresponding value from the key with same name as in the example below:
-
-  ```html
-  <p>CONTRATANTE: {{customer_name}} </p>
-  ```
-
-  Should become
-
-  ```html
-  <p>CONTRATANTE: Haroldo </p>
-  ```
-
-2. Generate the PDF
-  - With the final HTML, the document should be converted to PDF using any tool available for this
-  purpose. After that it should be persisted on cloud storage providers on production (e.g Amazon, Google Cloud Services, Azure), along with the other data used to create the document, as
-  demonstrated above.
